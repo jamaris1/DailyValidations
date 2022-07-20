@@ -68,7 +68,6 @@ class base_format_class:
 
     def setup_metadata(self):
 
-
         file1 = 'C:\\Users\\jamaris\\PycharmProjects\\DailyValidations\\files\\fin_stage_query.csv'
         file2 = 'C:\\Users\\jamaris\\PycharmProjects\\DailyValidations\\files\\fin_source_query.csv'
         file3 = 'C:\\Users\\jamaris\\PycharmProjects\\DailyValidations\\files\\fin_target_query.csv'
@@ -79,7 +78,6 @@ class base_format_class:
         csv2.head()
         csv3 = pd.read_csv(file3)
         csv3.head()
-
 
         merged_data = csv3.merge(csv1, on='TABLE_NAME', how='left').merge(csv2, on='TABLE_NAME', how='left')
 
@@ -107,10 +105,11 @@ class base_format_class:
                 if j[0].value == table_name:
                     l = l + 1
                     ws2.cell(l,3).value = j[1].value
-                    #print(j[1].value)
-        l = 1
+                    ws2.cell(l,4).value = j[2].value
+                    print(j[1].value)
 
         #VLOODUP to insert count into sheet1
+        l = 1
         for i in ws1.iter_rows():
             table_name = i[0].value
             logging.info(table_name)
@@ -122,14 +121,8 @@ class base_format_class:
                     l = l + 1
                     ws1.cell(row_number,5).value = j[2].value
                     print(j[2].value)
-            #l = 3
-
-            #Calculate source vs stage
 
 
-            #Calculate stage vs target
-
-            #Calculate source vs target
 
 
         ws1.cell(1,2).value = 'COUNTS'
@@ -157,6 +150,21 @@ class base_format_class:
         ws1['H2'] = 'SOURCE vs TARGET'
         ws1.cell(2,8).font = Font(bold=True)
 
+
+        #Inserts formulas to calculate source vs target, stage vs target, and stage vs source
+        for i in range(3, 115):
+            source = ws1.cell(row=i, column=4).value
+            target = ws1.cell(row=i, column=2).value
+            stage = ws1.cell(row=i, column=3).value
+            sourceVSstage = int(source or 0) - int(stage or 0)
+            stageVSTarget = int(stage or 0) - int(target or 0)
+            sourceVStarget = int(source or 0) - int(target or 0)
+
+            ws1.cell(row=i, column=6).value = sourceVSstage
+            ws1.cell(row=i, column=7).value = stageVSTarget
+            ws1.cell(row=i, column=8).value = sourceVStarget
+
+        #Formats the font of the borders of the table.
         regular = Side(border_style="medium", color="000000")
         for c in ws1['A2:I2'][0]:
             c.border = Border(bottom=regular, top=regular, left=regular, right=regular)
@@ -164,6 +172,9 @@ class base_format_class:
             c.border = Border(bottom=regular, top=regular, left=regular, right=regular)
         for c in ws1['A3:A115']+ws1['B3:B115']+ws1['C3:C115']+ws1['D3:D115']+ws1['E3:E115']+ws1['F3:F115']+ws1['G3:G115']+ws1['H3:H115']+ws1['I3:I115']:
             c[0].border = Border(bottom=regular, top=regular, left=regular, right=regular)
+
+        #Remove delete tables at the end
+        ws1.delete_rows(116, 27)
 
 
 
