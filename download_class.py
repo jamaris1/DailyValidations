@@ -1,5 +1,4 @@
 import time
-
 import cx_Oracle
 import snowflake.connector
 import logging
@@ -9,6 +8,14 @@ import csv
 from source_query_FIN import sql as fin_source_query
 from stage_query_FIN import sql as fin_stage_query
 from target_query_FIN import sql as fin_target_query
+
+
+'''
+This script contains the classes that download the data into a csv file. 
+Author: Jaime Amaris
+Creation Date: 2022-07-22
+Last Modification Date: 2022-07-22
+'''
 
 class ConnectionSource(cx_Oracle.Connection):
 
@@ -34,8 +41,6 @@ class CursorSource(cx_Oracle.Cursor):
 
     def invoke(self):
         pass
-
-
 
 
 
@@ -67,7 +72,7 @@ class base_download_class:
                     logging.info(self.sql)
 
                 elif key == 'fin_target_query':
-                    #time.sleep(10800)
+                    time.sleep(10800)
 
 
                     ctx = snowflake.connector.connect(

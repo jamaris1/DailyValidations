@@ -4,7 +4,13 @@ from openpyxl.styles import Alignment, Font, Border, Side
 import logging
 
 
-
+'''
+This script contains the classes that combine the source, target, and stage csv into one.
+It will then format the format the combine excel and perform all calculations. 
+Author: Jaime Amaris
+Creation Date: 2022-07-22
+Last Modification Date: 2022-07-22
+'''
 
 
 class base_format_class:
@@ -106,7 +112,6 @@ class base_format_class:
                     l = l + 1
                     ws2.cell(l,3).value = j[1].value
                     ws2.cell(l,4).value = j[2].value
-                    print(j[1].value)
 
         #VLOODUP to insert count into sheet1
         l = 1
@@ -120,7 +125,6 @@ class base_format_class:
                 if j[1].value == table_name:
                     l = l + 1
                     ws1.cell(row_number,5).value = j[2].value
-                    print(j[2].value)
 
 
 
@@ -173,7 +177,7 @@ class base_format_class:
         for c in ws1['A3:A115']+ws1['B3:B115']+ws1['C3:C115']+ws1['D3:D115']+ws1['E3:E115']+ws1['F3:F115']+ws1['G3:G115']+ws1['H3:H115']+ws1['I3:I115']:
             c[0].border = Border(bottom=regular, top=regular, left=regular, right=regular)
 
-        #Remove delete tables at the end
+        #Remove DEL TABLES at the end
         ws1.delete_rows(116, 27)
 
 

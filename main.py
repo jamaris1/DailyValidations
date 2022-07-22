@@ -1,12 +1,18 @@
 '''
-#1 Check if there is TL execution for 6am
-#2 Create a connection object for source, stage, and target.
-#2 LOOP: Check counts and insert in csv
-    #2.1 Check the count in source, stage, and target
-    #2.3 Insert the count into a csv
+This program does the following:
+#1 Create stage connection
+(Pending) #2 Check if there is TL execution for VFIN at 3:30am
+#3 Loop through the Connections dictionary:
+    #1 Create a connection object.
+    #2 Run validation count query for specific object
+    #3 Insert data into csv
 #3 Perform formatting.
 #4 Perform aggregate validations
-#5 Send email out.
+(Pending) #5 Send email out.
+
+
+Created Date: 2022-07-22
+Last Modification: 2022-07-22
 '''
 
 from download_class import base_download_class
