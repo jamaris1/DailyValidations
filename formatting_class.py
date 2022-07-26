@@ -97,12 +97,12 @@ class base_format_class:
         ws1.insert_rows(1, 1)
         ws1.delete_cols(1, 1)
         ws1.merge_cells('B1:E1')
-        ws1.merge_cells('F1:I1')
+        ws1.merge_cells('F1:H1')
 
         ws2= wb.create_sheet("delete_refs")
         self.del_refs(ws2)
 
-        #VLOODUP to insert into delete_refs sheet
+        #VLOODUP to insert table names into delete_refs sheet
         l = 0
         for i in ws2.iter_rows():
             table_name = i[0].value
@@ -113,7 +113,7 @@ class base_format_class:
                     ws2.cell(l,3).value = j[1].value
                     ws2.cell(l,4).value = j[2].value
 
-        #VLOODUP to insert count into sheet1
+        #VLOODUP to insert delete counts into sheet1
         l = 1
         for i in ws1.iter_rows():
             table_name = i[0].value
@@ -141,8 +141,6 @@ class base_format_class:
 
 
 
-        double = Side(border_style="double", color="00000000")
-        thin = Side(border_style="thin", color="00000000")
 
 
         ws1['E2'] = 'DELETE COUNT'
@@ -170,11 +168,11 @@ class base_format_class:
 
         #Formats the font of the borders of the table.
         regular = Side(border_style="medium", color="000000")
-        for c in ws1['A2:I2'][0]:
+        for c in ws1['A2:H2'][0]:
             c.border = Border(bottom=regular, top=regular, left=regular, right=regular)
-        for c in ws1['A1:I1'][0]:
+        for c in ws1['A1:H1'][0]:
             c.border = Border(bottom=regular, top=regular, left=regular, right=regular)
-        for c in ws1['A3:A115']+ws1['B3:B115']+ws1['C3:C115']+ws1['D3:D115']+ws1['E3:E115']+ws1['F3:F115']+ws1['G3:G115']+ws1['H3:H115']+ws1['I3:I115']:
+        for c in ws1['A3:A115']+ws1['B3:B115']+ws1['C3:C115']+ws1['D3:D115']+ws1['E3:E115']+ws1['F3:F115']+ws1['G3:G115']+ws1['H3:H115']:
             c[0].border = Border(bottom=regular, top=regular, left=regular, right=regular)
 
         #Remove DEL TABLES at the end
